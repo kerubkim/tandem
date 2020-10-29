@@ -23,7 +23,7 @@ const Trivia = () => {
 	};
 
 	return (
-		<Flex justifyContent="center" alignItems="center" height="100vh" direction="column">
+		<Flex minHeight="50vh" justifyContent="center" alignItems="center" direction="column">
 			{!isQuizTime ? <NamePrompt onSubmit={_onNameSubmit} /> : <Quiz onQuizFinish={_onQuizFinish} />}
 		</Flex>
 	);
