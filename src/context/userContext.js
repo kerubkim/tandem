@@ -11,7 +11,7 @@ export default function UserContextComp({ children }) {
         const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
             try {
                 if(user) {
-                    console.log(user);
+                    setUser(user.uid);
                 } else {
                     setUser(null)
                 }
