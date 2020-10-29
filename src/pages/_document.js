@@ -11,7 +11,7 @@ class Document extends NextDocument {
 		return (
 			<Html>
 				<Head>
-					<meta title="NextJS with Chakra UI" />
+					<meta title="Tandem Trivia" />
 				</Head>
 				<body>
 					<Main />

@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-chakraui-boilerplate",
+  "name": "tandem-trivia",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,8 @@
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
     "emotion-theming": "^10.0.27",
-    "next": "^9.1.7",
+    "firebase": "^8.0.0",
+    "next": "^10.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },

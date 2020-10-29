@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
 				<CSSReset />
 				<Global
 					styles={css`
-						#__next {
+						html, body, #__next {
 							height: 100%;
 						}
 					`}
