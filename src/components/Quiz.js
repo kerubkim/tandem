@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
-import { Stack, Heading, Radio } from "@chakra-ui/core";
+import { Stack, Heading, Radio , Spinner } from "@chakra-ui/core";
 import firebase from "../firebase";
 import Question from "./Question";
+import QuizResult from "./QuizResult";
 
 const Quiz = ({ onQuizFinish }) => {
 	const [questions, setQuestions] = React.useState(null);
@@ -23,7 +24,11 @@ const Quiz = ({ onQuizFinish }) => {
 		firebase.getAllQuestions("seasonOne").then((qs) => setQuestions(qs));
 	}, []);
 
-	return <Stack>{!questions ? <Heading>Quiz</Heading> : questionNumber === questions.length ? <Heading>Result {totalCorrect}</Heading> : <Question q={questions[questionNumber]} onSaveAnswer={_saveAnswer} />}</Stack>;
+    if(!questions) {
+        return <Spinner />
+    }
+
+	return <Stack width="100%">{questionNumber === questions.length ? <QuizResult score={totalCorrect} maxScore={questions.length} /> : <Question q={questions[questionNumber]} onSaveAnswer={_saveAnswer} />}</Stack>;
 };
 
 export default Quiz;

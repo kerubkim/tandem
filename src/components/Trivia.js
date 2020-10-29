@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Flex, Heading, Input, Stack, IconButton } from "@chakra-ui/core";
+import { Flex, Heading, Input, Stack, IconButton, Spinner } from "@chakra-ui/core";
 import NamePrompt from "./NamePrompt";
 import Quiz from "./Quiz";
 import {useUser} from "../context/userContext";
@@ -12,18 +12,15 @@ const Trivia = () => {
 	const _onNameSubmit = (name) => {
 		setName(name);
 		setIsQuizTime(true);
-		console.log(name);
 	};
 
 	const _onQuizFinish = (totalCorrect, maxScore) => {
-        console.log(user);
         const tempUser = {user, name};
-		console.log("total", totalCorrect);
         firebase.saveTriviaEntry(tempUser, "seasonOne", totalCorrect, maxScore);
 	};
 
 	return (
-		<Flex minHeight="50vh" justifyContent="center" alignItems="center" direction="column">
+		<Flex width="100%" justify="center" align="center" direction="column">
 			{!isQuizTime ? <NamePrompt onSubmit={_onNameSubmit} /> : <Quiz onQuizFinish={_onQuizFinish} />}
 		</Flex>
 	);
