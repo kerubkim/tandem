@@ -1,7 +1,8 @@
 import { Global, css } from "@emotion/core";
-import { ThemeProvider, CSSReset, ColorModeProvider } from "@chakra-ui/core";
+import { ThemeProvider, CSSReset, ColorModeProvider, Stack, IconButton } from "@chakra-ui/core";
 import UserProvider from "../context/userContext";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
+import Link from "next/link";
 
 import theme from "../theme";
 
@@ -22,6 +23,14 @@ const MyApp = ({ Component, pageProps }) => {
 					/>
 					<Component {...pageProps} />
                     <DarkModeSwitch />
+                    <Stack position="fixed" top="10px" left="1rem" isInline>
+                        <Link href="/">
+                            <IconButton mr={2} icon="question-outline" isRound size="sm" />
+                        </Link>
+                        <Link href="/score">
+                            <IconButton icon="star" isRound size="sm" />
+                        </Link>
+                    </Stack>
 				</ColorModeProvider>
 			</UserProvider>
 		</ThemeProvider>

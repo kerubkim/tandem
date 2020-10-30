@@ -1,10 +1,8 @@
-import { Link as ChakraLink, Text, Code, Icon, List, ListIcon, ListItem } from "@chakra-ui/core";
-
-import { Hero } from "../components/Hero";
+import { Flex  } from "@chakra-ui/core";
 import { Container } from "../components/Container";
 import { Main } from "../components/Main";
-import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import firebase from "../firebase";
+import Trivia from "../components/Trivia";
 
 const Index = () => {
 	React.useEffect(() => {
@@ -13,9 +11,11 @@ const Index = () => {
 
 	return (
 		<Container>
-			<Hero />
-			<Main></Main>
-
+			<Main>
+				<Flex height="100%" direction="column" justify="center">
+					<Trivia />
+				</Flex>
+			</Main>
 		</Container>
 	);
 };
