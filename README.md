@@ -1,9 +1,14 @@
 # Tandem Trivia
 
+DEMO: http://13.56.224.98/
+
 ## Using
 - NextJS(ReactJS)
 - Firebase
 - ChakraUI
+
+## Requirements
+- nodejs 10.13 or later
 
 ## How to use
 1. Copy .env.development.local.copy to .env.development.local and fill in Firebase configuration variables
