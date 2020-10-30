@@ -3,6 +3,7 @@ import { Container } from "../components/Container";
 import { Main } from "../components/Main";
 import firebase from "../firebase";
 import Trivia from "../components/Trivia";
+import SEO from "../components/SEO";
 
 const Index = () => {
 	React.useEffect(() => {
@@ -11,6 +12,7 @@ const Index = () => {
 
 	return (
 		<Container>
+            <SEO />
 			<Main>
 				<Flex height="100%" direction="column" justify="center">
 					<Trivia />
