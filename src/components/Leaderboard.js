@@ -1,19 +1,28 @@
 import { Spinner, Stack, Flex, Avatar, Text, Heading } from "@chakra-ui/core";
-import firebase from "../firebase";
+import firebase from "../firebase/clientApp";
 
 const Leaderboard = ({ fullHeight }) => {
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [entries, setEntries] = React.useState(null);
 
 	React.useEffect(() => {
-		const unsubscribe = () => {
-			firebase.getLeaderboard().then((res) => {
-				setEntries(res);
+        // TODO: move to firebase index
+		const unsubscribe = firebase
+			.firestore()
+			.collection(`Leaderboard/seasonOne/entries`)
+			.orderBy("score", "desc")
+			.onSnapshot((CollectionSnapshot) => {
+				let temp = [];
+				CollectionSnapshot.forEach((doc) => {
+					temp.push(doc.data());
+				});
+				setEntries(temp);
 				setIsLoading(false);
 			});
-		};
 
-		return unsubscribe();
+		return () => {
+			unsubscribe();
+		};
 	}, [entries]);
 
 	if (isLoading) {
@@ -28,17 +37,21 @@ const Leaderboard = ({ fullHeight }) => {
 		<Stack>
 			<Stack spacing={6} py="5rem" px="1.5rem" maxHeight="80vh" overflowY="scroll">
 				<Heading as="h6" size="lg">
-				    Scoreboard	
+					Scoreboard
 				</Heading>
-				{entries.map((entry, index) => (
-					<Flex key={index} width="100%" align="center" justify="space-between">
-						<Avatar name={entry.name} src={""} size={"md"} />
-						<Text as="h6" isTruncated>
-							{entry.name}
-						</Text>
-						<Text as="h6">{entry.score}%</Text>
-					</Flex>
-				))}
+				{entries.length <= 0 ? (
+					<Text>No one has taken the quiz.</Text>
+				) : (
+					entries.map((entry, index) => (
+						<Flex key={index} width="100%" align="center" justify="space-between">
+							<Avatar name={entry.name} src={""} size={"md"} />
+							<Text as="h6" isTruncated>
+								{entry.name}
+							</Text>
+							<Text as="h6">{entry.score}%</Text>
+						</Flex>
+					))
+				)}
 			</Stack>
 		</Stack>
 	);

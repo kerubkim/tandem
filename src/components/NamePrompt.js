@@ -11,7 +11,7 @@ const NamePrompt = ({ onSubmit }) => {
 				<Heading as="h3">Before we begin, what is your name?</Heading>
 				<Input onChange={(e) => setName(e.target.value)} value={name} placeholder="Hi, my name is ..." />
 			</Stack>
-			<IconButton variant="outline" icon={"chevron-right"} isRound onClick={() => onSubmit(name)} />
+			<IconButton variant="outline" icon={"chevron-right"} isRound isDisabled={name.length <= 0 ? true : false } onClick={() => onSubmit(name)} />
 		</>
 	);
 };

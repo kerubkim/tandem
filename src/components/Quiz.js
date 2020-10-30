@@ -11,7 +11,10 @@ const Quiz = ({ onQuizFinish }) => {
 
 	const _saveAnswer = (q, answer) => {
 		setTotalCorrect((prevState) => (q.answer === answer ? prevState + 1 : prevState));
+        setTimeout(() => {
+
 		setQuestionNumber((prevState) => prevState + 1);
+        }, 3000);
 	};
 
 	React.useEffect(() => {
