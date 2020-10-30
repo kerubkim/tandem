@@ -15,7 +15,7 @@ const Trivia = () => {
 	};
 
 	const _onQuizFinish = (totalCorrect, maxScore) => {
-        const tempUser = {user, name};
+        const tempUser = {uid: user, name};
         firebase.saveTriviaEntry(tempUser, "seasonOne", totalCorrect, maxScore);
 	};
 

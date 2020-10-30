@@ -33,8 +33,8 @@ export default {
 	saveTriviaEntry: (user, season = "seasonOne", totalCorrect, maxScore) => {
 		return firebase
 			.firestore()
-			.collection(`Leaderboard/${season}/entries`)
-			.add({
+			.collection(`Leaderboard/${season}/entries`).doc(user.uid)
+			.set({
 				name: user.name,
 				score: (totalCorrect / maxScore) * 100,
 			})
@@ -42,4 +42,12 @@ export default {
 				console.log("[firebase] error saving entry ", error);
 			});
 	},
+    getUserResult: async (userUID, season = "seasonOne") => {
+        const entriesRef = firebase.firestore().collection(`Leaderboard/${season}/entries`);
+        const userScoreSnapshot = await entriesRef.doc(userUID).get();
+        const userScoreData = userScoreSnapshot.data();
+        const scoreListSnapshot = await entriesRef.where("score", "<", userScoreData.score).get();
+        const sameScoreSnapshot = await entriesRef.where("score", "==", userScoreData.score).get(); 
+        return {entry: userScoreData, lowScore: scoreListSnapshot.size, sameScore: sameScoreSnapshot.size};
+    }
 };
