@@ -47,6 +47,7 @@ export default {
         const userScoreSnapshot = await entriesRef.doc(userUID).get();
         const userScoreData = userScoreSnapshot.data();
         const scoreListSnapshot = await entriesRef.where("score", "<", userScoreData.score).get();
+        const higherScoreSnapshot = await entriesRef.where("score", ">", userScoreData.score).get();
         const sameScoreSnapshot = await entriesRef.where("score", "==", userScoreData.score).get(); 
         let temp = sameScoreSnapshot.docs;
         temp.map((document, index) => {
@@ -55,6 +56,6 @@ export default {
                 temp.splice(index, 1)
             }
         })
-        return {entry: userScoreData, lowScore: scoreListSnapshot.size, sameScore: temp.length};
+        return {entry: userScoreData, lowScore: scoreListSnapshot.size, sameScore: temp.length, higherScore: higherScoreSnapshot.size};
     }
 };
