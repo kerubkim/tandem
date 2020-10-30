@@ -36,7 +36,7 @@ export default {
 			.collection(`Leaderboard/${season}/entries`).doc(user.uid)
 			.set({
 				name: user.name,
-				score: (totalCorrect / maxScore) * 100,
+				score: Math.floor((totalCorrect / maxScore) * 100),
 			})
 			.catch((err) => {
 				console.log("[firebase] error saving entry ", error);
@@ -48,6 +48,13 @@ export default {
         const userScoreData = userScoreSnapshot.data();
         const scoreListSnapshot = await entriesRef.where("score", "<", userScoreData.score).get();
         const sameScoreSnapshot = await entriesRef.where("score", "==", userScoreData.score).get(); 
-        return {entry: userScoreData, lowScore: scoreListSnapshot.size, sameScore: sameScoreSnapshot.size};
+        let temp = sameScoreSnapshot.docs;
+        temp.map((document, index) => {
+            // remove user owed entry
+            if(document.id === userUID) {
+                temp.splice(index, 1)
+            }
+        })
+        return {entry: userScoreData, lowScore: scoreListSnapshot.size, sameScore: temp.length};
     }
 };
