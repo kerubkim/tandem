@@ -14,7 +14,7 @@ const Quiz = ({ onQuizFinish }) => {
         setTimeout(() => {
 
 		setQuestionNumber((prevState) => prevState + 1);
-        }, 3000);
+        }, 2000);
 	};
 
 	React.useEffect(() => {
